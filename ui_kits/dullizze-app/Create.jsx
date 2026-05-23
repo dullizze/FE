@@ -40,21 +40,24 @@ function Create({ onCreated }) {
   const tpl = TEMPLATES.find((t) => t.value === template);
   const charsLeft = 200 - topic.length;
 
-  function submit(e) {
+  async function submit(e) {
     e?.preventDefault?.();
     if (!topic.trim() || submitting) return;
     setSub(true);
-    setTimeout(() => {
-      const job = window.DullizzeAPI.createJob({
+    try {
+      const job = await window.DullizzeAPI.createJob({
         topic: topic.trim(), template, tone, voice,
         visual_mode: visualMode, headline_main: headlineMain || null,
         headline_accent: headlineAccent || null, channel_name: channelName || null,
         accent_color: accentColor,
       });
       window.DullizzeAPI.startPolling(job.job_id, () => {});
-      setSub(false);
       onCreated(job.job_id);
-    }, 320);
+    } catch (err) {
+      alert(`생성 요청에 실패했어요.\n${err.message || err}`);
+    } finally {
+      setSub(false);
+    }
   }
 
   function pickSample() {

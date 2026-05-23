@@ -22,12 +22,19 @@ function Job({ jobId, onBack, onRoute }) {
   const [published, setPub] = React.useState(false);
 
   React.useEffect(() => {
-    if (!job) return;
-    if (job.status === 'queued' || job.status === 'running') {
+    let alive = true;
+    if (!job) {
+      window.DullizzeAPI.refreshJob?.(jobId).then((next) => {
+        if (alive) setJob({ ...next });
+      }).catch(() => {});
+    } else if (job.status === 'queued' || job.status === 'running') {
       window.DullizzeAPI.startPolling(job.job_id, (next) => setJob({ ...next }));
     }
-    return () => window.DullizzeAPI.stopPolling(jobId);
-  }, [jobId]);
+    return () => {
+      alive = false;
+      window.DullizzeAPI.stopPolling(jobId);
+    };
+  }, [jobId, job?.job_id, job?.status]);
 
   if (!job) {
     return (
@@ -44,8 +51,10 @@ function Job({ jobId, onBack, onRoute }) {
   const isFailed  = job.status === 'failed';
   const isDone    = job.status === 'done';
 
-  const stepIdx = STEP_ORDER.indexOf(job.step);
+  const rawStepIdx = STEP_ORDER.indexOf(job.step);
+  const stepIdx = rawStepIdx < 0 ? 0 : rawStepIdx;
   const progress = isDone ? 100 : Math.round(((stepIdx + (isRunning ? 0.4 : 0)) / STEP_ORDER.length) * 100);
+  const videoUrl = window.DullizzeAPI.getVideoUrl?.(job);
 
   function retry() {
     job.status = 'queued'; job.error = null; job.step = 'script';
@@ -96,8 +105,13 @@ function Job({ jobId, onBack, onRoute }) {
             position: 'relative', aspectRatio: '9 / 16', borderRadius: 6, overflow: 'hidden',
             background: '#0b111d', display: 'grid', placeItems: 'center',
           }}>
-            <img src={TEMPLATE_SVG[job.template]} alt=""
-                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: isDone ? 1 : 0.4 }} />
+            {videoUrl ? (
+              <video src={videoUrl} controls playsInline
+                     style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <img src={TEMPLATE_SVG[job.template]} alt=""
+                   style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: isDone ? 1 : 0.4 }} />
+            )}
             {!isDone ? (
               <div style={{ position: 'relative', zIndex: 1, color: '#cbd5e1', textAlign: 'center', font: '500 12px/1.4 var(--font-mono)' }}>
                 {isFailed ? (
@@ -114,7 +128,7 @@ function Job({ jobId, onBack, onRoute }) {
                   </React.Fragment>
                 )}
               </div>
-            ) : (
+            ) : videoUrl ? null : (
               <button
                 style={{
                   position: 'relative', zIndex: 1, width: 56, height: 56, borderRadius: '50%',

@@ -17,12 +17,24 @@ const DBTEMPLATE_SVG = {
 function Dashboard({ onOpenJob, onCreate }) {
   const [filter, setFilter] = React.useState('all');
   const [jobs, setJobs] = React.useState(() => window.DullizzeAPI.listJobs());
-  const quota = window.DullizzeAPI.getQuota();
+  const [quota, setQuota] = React.useState(() => window.DullizzeAPI.getQuota());
 
-  // simple refresh tick — picks up any running jobs from Create flow
   React.useEffect(() => {
-    const t = setInterval(() => setJobs(window.DullizzeAPI.listJobs()), 1200);
-    return () => clearInterval(t);
+    const sync = async () => {
+      await window.DullizzeAPI.refreshJobs?.();
+      setJobs(window.DullizzeAPI.listJobs());
+      setQuota(window.DullizzeAPI.getQuota());
+    };
+    sync();
+    const off = window.DullizzeAPI.onChange?.(() => {
+      setJobs(window.DullizzeAPI.listJobs());
+      setQuota(window.DullizzeAPI.getQuota());
+    });
+    const t = setInterval(sync, 2500);
+    return () => {
+      off?.();
+      clearInterval(t);
+    };
   }, []);
 
   const filtered = jobs.filter((j) => {

@@ -9,6 +9,9 @@ time in. Open `index.html` to see it stitched together.
 - `index.html` — entry; loads React + Babel from CDN, all `.jsx` modules,
   and the design-system CSS. Owns the routing state (`/app/create`,
   `/app/jobs/:id`, `/app/dashboard`, `/app/presets`).
+- `api-client.js` — real FastAPI adapter. Defaults to
+  `http://localhost:8000`; use `?apiBase=http://host:port` to point at
+  another API, or `?api=mock` to keep the in-memory mock.
 - `primitives.jsx` — `Button`, `Input`, `Textarea`, `Select`,
   `Segmented`, `Field`, `Badge`, `Card`, `Quota`, `Icon`.
 - `Shell.jsx` — top bar (brand + nav + API status + quota chip +
@@ -19,14 +22,16 @@ time in. Open `index.html` to see it stitched together.
   preview pane + meta + retry / publish.
 - `Dashboard.jsx` — `/app/dashboard`: quota card + job list with
   thumbnails, filters, retry.
-- `fake-api.js` — pure in-memory mock: `createJob`, `getJob`, `tickJob`
-  (simulates the 5-step pipeline over ~10s), `listJobs`, `getQuota`.
+- `fake-api.js` — pure in-memory mock used only when `?api=mock` is set:
+  `createJob`, `getJob`, `tickJob` (simulates the 5-step pipeline over
+  ~10s), `listJobs`, `getQuota`.
 
 ## What's intentionally simplified
 
 - No real video. The preview pane shows a styled `final.mp4` placeholder
   + the chosen template's swatch.
-- Polling is a `setInterval` over a local job dict, not real HTTP.
+- Job creation and polling call the FastAPI job endpoints when the API is
+  running. The mock mode still uses a local dict for design review.
 - Auth, onboarding, payment, YouTube OAuth — out of scope for the MVP
   surface. Stubs visible in `Settings`.
 - Per-cut video editor (PRD §6 / FRONTEND §6) is Phase 2 — left as a

@@ -9,7 +9,24 @@ const NAV = [
 ];
 
 function Shell({ route, onRoute, children }) {
-  const quota = window.DullizzeAPI.getQuota();
+  const [quota, setQuota] = React.useState(() => window.DullizzeAPI.getQuota());
+  const [apiStatus, setApiStatus] = React.useState(() => window.DullizzeAPI.getStatus?.() || { connected: true, text: 'API · 목업' });
+
+  React.useEffect(() => {
+    const sync = () => {
+      setQuota(window.DullizzeAPI.getQuota());
+      setApiStatus(window.DullizzeAPI.getStatus?.() || { connected: true, text: 'API · 목업' });
+    };
+    const off = window.DullizzeAPI.onChange?.(sync);
+    window.DullizzeAPI.refreshHealth?.();
+    window.DullizzeAPI.refreshQuota?.().then(sync).catch(sync);
+    const timer = setInterval(sync, 2500);
+    return () => {
+      off?.();
+      clearInterval(timer);
+    };
+  }, []);
+
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
       <header style={{
@@ -62,8 +79,8 @@ function Shell({ route, onRoute, children }) {
 
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 14 }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: 'var(--fg-muted)', font: '500 12px/1 var(--font-mono)', whiteSpace: 'nowrap' }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--success)' }} />
-            API · 정상
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: apiStatus.connected ? 'var(--success)' : 'var(--warning)' }} />
+            {apiStatus.text}
           </span>
           <Quota used={quota.used} limit={quota.limit} />
           <span style={{
