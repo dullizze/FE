@@ -87,12 +87,12 @@ function Select({ value, onChange, options, style }) {
 
 function Field({ label, hint, children }) {
   return (
-    <label style={{ display: 'block' }}>
+    <div style={{ display: 'block' }}>
       <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--fg-muted)', marginBottom: 6 }}>
         {label} {hint ? <span style={{ fontWeight: 400, color: 'var(--fg-subtle)' }}>· {hint}</span> : null}
       </div>
       {children}
-    </label>
+    </div>
   );
 }
 
@@ -121,6 +121,86 @@ function Segmented({ value, onChange, options }) {
           </button>
         );
       })}
+    </div>
+  );
+}
+
+const COLOR_SWATCHES = [
+  '#000000', '#303030', '#5C5C5C', '#8A8A8A', '#B0B0B0', '#DCDCDC', '#F4F4F5', '#FFFFFF',
+  '#B20C0C', '#E52222', '#FF9200', '#FFE000', '#49E57D', '#73E3E3', '#4F95FF', '#6541F2',
+  '#D331B8', '#FF4FA3', '#D6B1A5', '#F0C7BD', '#FEE6C6', '#FEF4E6', '#D9FFE6', '#EAF2FE',
+  '#C9DEFE', '#DBDCDF', '#D8CCE3', '#E5C8D7', '#C35F45', '#D98774', '#EAC592', '#F7D86D',
+  '#A8C686', '#93B6B8', '#9EC5FF', '#8AA1D9', '#9B78C7', '#B17EA3', '#9C3E24', '#C75943',
+  '#D99036', '#D7AA29', '#76A84F', '#4C7A89', '#4375DB', '#4F5DBB', '#6D3B92', '#914B78',
+  '#6B1B0B', '#84220D', '#8F5213', '#917114', '#315B1E', '#153A4A', '#1D4094', '#2B236E',
+  '#4C165D', '#5A123B',
+];
+
+function normalizeHexColor(value) {
+  const raw = String(value || '').trim();
+  if (/^#[0-9a-fA-F]{6}$/.test(raw)) return raw.toUpperCase();
+  if (/^[0-9a-fA-F]{6}$/.test(raw)) return `#${raw}`.toUpperCase();
+  if (/^#[0-9a-fA-F]{3}$/.test(raw)) {
+    return `#${raw[1]}${raw[1]}${raw[2]}${raw[2]}${raw[3]}${raw[3]}`.toUpperCase();
+  }
+  if (/^[0-9a-fA-F]{3}$/.test(raw)) {
+    return `#${raw[0]}${raw[0]}${raw[1]}${raw[1]}${raw[2]}${raw[2]}`.toUpperCase();
+  }
+  return raw;
+}
+
+function ColorPalette({ value, onChange, colors = COLOR_SWATCHES }) {
+  const selected = normalizeHexColor(value);
+  return (
+    <div style={{ display: 'grid', gap: 10 }}>
+      <div role="grid" aria-label="글씨 강조색" style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(28px, 1fr))',
+        justifyItems: 'center',
+        gap: 8,
+        padding: 10,
+        border: '1px solid var(--line)',
+        borderRadius: 8,
+        background: 'var(--surface-soft)',
+      }}>
+        {colors.map((color) => {
+          const normalized = normalizeHexColor(color);
+          const active = normalized === selected;
+          const isLight = ['#FFFFFF', '#F4F4F5', '#DCDCDC', '#FEF4E6', '#FEE6C6', '#D9FFE6', '#EAF2FE', '#C9DEFE', '#DBDCDF', '#D8CCE3', '#E5C8D7'].includes(normalized);
+          return (
+            <button key={normalized} type="button" title={normalized} aria-label={normalized}
+              onClick={() => onChange?.(normalized)}
+              style={{
+                width: 28,
+                height: 28,
+                borderRadius: '50%',
+                border: active ? '2px solid var(--fg)' : '1px solid rgba(0,0,0,0.16)',
+                background: normalized,
+                boxShadow: active ? '0 0 0 3px var(--accent-ring)' : 'none',
+                display: 'grid',
+                placeItems: 'center',
+                cursor: 'pointer',
+                padding: 0,
+              }}>
+              {active ? (
+                <Icon name="check" size={16} strokeWidth={2.5}
+                      style={{ color: isLight ? 'var(--fg)' : '#fff' }} />
+              ) : null}
+            </button>
+          );
+        })}
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '32px 1fr', gap: 10, alignItems: 'center' }}>
+        <span style={{
+          width: 32,
+          height: 32,
+          borderRadius: '50%',
+          background: selected || 'transparent',
+          border: '1px solid var(--line)',
+        }} />
+        <Input value={value} onChange={(next) => onChange?.(normalizeHexColor(next))}
+               placeholder="#FF4FA3" />
+      </div>
     </div>
   );
 }
@@ -187,4 +267,4 @@ function Quota({ used, limit }) {
   );
 }
 
-Object.assign(window, { Button, Input, Textarea, Select, Field, Segmented, Badge, Card, Quota, STATUS_KO });
+Object.assign(window, { Button, Input, Textarea, Select, Field, Segmented, ColorPalette, Badge, Card, Quota, STATUS_KO });

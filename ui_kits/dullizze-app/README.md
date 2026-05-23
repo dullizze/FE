@@ -13,11 +13,12 @@ time in. Open `index.html` to see it stitched together.
   `http://localhost:8000`; use `?apiBase=http://host:port` to point at
   another API, or `?api=mock` to keep the in-memory mock.
 - `primitives.jsx` — `Button`, `Input`, `Textarea`, `Select`,
-  `Segmented`, `Field`, `Badge`, `Card`, `Quota`, `Icon`.
+  `Segmented`, `Field`, `ColorPalette`, `Badge`, `Card`, `Quota`, `Icon`.
 - `Shell.jsx` — top bar (brand + nav + API status + quota chip +
   avatar) and the main two-column layout.
-- `Create.jsx` — the `/app/create` flow: topic → 형 → branding → 생성.
-  Submits to fake-API, transitions into the Job screen.
+- `Create.jsx` — the `/app/create` flow: topic → 형 → branding
+  (글씨 강조색 palette 포함) → 생성. Submits to the API adapter,
+  transitions into the Job screen.
 - `Job.jsx` — `/app/jobs/[id]`: status badge + step polling + video
   preview pane + meta + retry / publish.
 - `Dashboard.jsx` — `/app/dashboard`: quota card + job list with

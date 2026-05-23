@@ -126,10 +126,14 @@ function Create({ onCreated }) {
               <Field label="톤"><Input value={tone} onChange={setTone} /></Field>
               <Field label="보이스"><Select value={voice} onChange={setVoice} options={VOICES} /></Field>
               <Field label="비주얼 방식"><Select value={visualMode} onChange={setVM} options={VISUAL_MODES} /></Field>
-              <Field label="강조색 (배너형)"><Input value={accentColor} onChange={setAC} /></Field>
 
               {template === 'banner' ? (
                 <React.Fragment>
+                  <div style={{ gridColumn: '1 / -1' }}>
+                    <Field label="글씨 강조색" hint="배너형 상단·하단 강조 글씨에 적용돼요">
+                      <ColorPalette value={accentColor} onChange={setAC} />
+                    </Field>
+                  </div>
                   <Field label="상단 헤드라인 1줄" hint="비우면 AI가 채워요">
                     <Input value={headlineMain} onChange={setHM} placeholder="예) 클로드가" />
                   </Field>
@@ -141,7 +145,11 @@ function Create({ onCreated }) {
                            placeholder="예) 소소한 AI 입문노트 | 소에노" />
                   </Field>
                 </React.Fragment>
-              ) : null}
+              ) : (
+                <Field label="글씨 강조색" hint="배너형에서 사용돼요">
+                  <Input value={accentColor} onChange={setAC} />
+                </Field>
+              )}
             </div>
           ) : null}
         </Card>
