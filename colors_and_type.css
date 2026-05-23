@@ -1,0 +1,250 @@
+/* ────────────────────────────────────────────────────────────
+   Dullizze — Design Tokens
+   Korean SaaS that turns a one-line topic into a 9:16 YouTube Short.
+   Stack target: Next.js + shadcn/ui, themed with Wanted DS tokens +
+   Pretendard / Wanted Sans webfonts.
+   ──────────────────────────────────────────────────────────── */
+
+/* Public CDN fonts — Pretendard (body) + Wanted Sans (display).
+   Substitution note: the source ZIPs uploaded by the user
+   (wanted-sans-main.zip, Pretendard-1.3.9.zip) were not present in
+   the project filesystem at build time, so we link the official
+   public CDN distributions. Drop the locally-hosted fonts into
+   /fonts/ and switch @import → @font-face when shipping. */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+@import url("https://cdn.jsdelivr.net/gh/wanted-sans/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css");
+
+:root {
+  color-scheme: light;
+
+  /* ════════════════════════════════════════════════════════════
+     PRIMITIVE TOKENS — Wanted Design System atomic palette.
+     Source of truth: Wanted DS Figma (color-atomic-*), hex verbatim.
+     Edit the SEMANTIC tokens below, not these primitives. */
+
+  /* Common */
+  --w-common-100: #ffffff;  --w-common-0: #000000;
+
+  /* Neutral */
+  --w-neutral-99: #f7f7f7;  --w-neutral-95: #dcdcdc;  --w-neutral-90: #c4c4c4;
+  --w-neutral-80: #b0b0b0;  --w-neutral-70: #9b9b9b;  --w-neutral-60: #8a8a8a;
+  --w-neutral-50: #737373;  --w-neutral-40: #5c5c5c;  --w-neutral-30: #474747;
+  --w-neutral-22: #303030;  --w-neutral-20: #2a2a2a;  --w-neutral-15: #1c1c1c;
+  --w-neutral-10: #171717;  --w-neutral-5: #0f0f0f;
+
+  /* Cool Neutral — product chrome greys */
+  --w-coolNeutral-99: #f7f7f8;  --w-coolNeutral-98: #f4f4f5;  --w-coolNeutral-97: #eaebec;
+  --w-coolNeutral-96: #e1e2e4;  --w-coolNeutral-95: #dbdcdf;  --w-coolNeutral-90: #c2c4c8;
+  --w-coolNeutral-80: #aeb0b6;  --w-coolNeutral-70: #989ba2;  --w-coolNeutral-60: #878a93;
+  --w-coolNeutral-50: #70737c;  --w-coolNeutral-40: #5a5c63;  --w-coolNeutral-30: #46474c;
+  --w-coolNeutral-25: #37383c;  --w-coolNeutral-23: #333438;  --w-coolNeutral-22: #2e2f33;
+  --w-coolNeutral-20: #292a2d;  --w-coolNeutral-17: #212225;  --w-coolNeutral-15: #1b1c1e;
+  --w-coolNeutral-10: #171719;  --w-coolNeutral-7: #141415;   --w-coolNeutral-5: #0f0f10;
+
+  /* Blue — brand primary */
+  --w-blue-99: #f7fbff;  --w-blue-95: #eaf2fe;  --w-blue-90: #c9defe;  --w-blue-80: #9ec5ff;
+  --w-blue-70: #69a5ff;  --w-blue-65: #4f95ff;  --w-blue-60: #3385ff;  --w-blue-55: #1a75ff;
+  --w-blue-50: #0066ff;  --w-blue-45: #005eeb;  --w-blue-40: #0054d1;  --w-blue-30: #003e9c;
+  --w-blue-20: #002966;  --w-blue-10: #001536;
+
+  /* Red — danger */
+  --w-red-99: #fffafa;  --w-red-95: #feecec;  --w-red-90: #fed5d5;  --w-red-80: #ffb5b5;
+  --w-red-70: #ff8c8c;  --w-red-60: #ff6363;  --w-red-50: #ff4242;  --w-red-40: #e52222;
+  --w-red-30: #b20c0c;  --w-red-20: #750404;  --w-red-10: #3b0101;
+
+  /* Green — success */
+  --w-green-99: #f2fff6;  --w-green-95: #d9ffe6;  --w-green-90: #acfcc7;  --w-green-80: #7df5a5;
+  --w-green-70: #49e57d;  --w-green-60: #1ed45a;  --w-green-50: #00bf40;  --w-green-40: #009632;
+  --w-green-30: #006e25;  --w-green-20: #004517;  --w-green-10: #00240c;
+
+  /* Orange — warning / in-progress */
+  --w-orange-99: #fffcf7;  --w-orange-95: #fef4e6;  --w-orange-90: #fee6c6;  --w-orange-80: #ffd49c;
+  --w-orange-70: #ffc06e;  --w-orange-60: #ffa938;  --w-orange-50: #ff9200;  --w-orange-40: #d47800;
+  --w-orange-39: #d17600;  --w-orange-30: #9c5800;  --w-orange-20: #663a00;  --w-orange-10: #361e00;
+
+  /* Pink — banner/template accent reference */
+  --w-pink-99: #fffafe;  --w-pink-95: #feecfb;  --w-pink-90: #fed3f7;  --w-pink-80: #ffb8f3;
+  --w-pink-70: #ff94ed;  --w-pink-60: #fa73e3;  --w-pink-50: #f553da;  --w-pink-46: #e846cd;
+  --w-pink-40: #d331b8;  --w-pink-30: #a81690;  --w-pink-20: #730560;  --w-pink-10: #3d0133;
+
+  /* Violet — used in the brand-mark gradient */
+  --w-violet-50: #6541f2;
+
+  /* Opacity scale (Wanted color-atomic-opacity-*) */
+  --opacity-5: 0.05;   --opacity-8: 0.08;   --opacity-12: 0.12;  --opacity-16: 0.16;
+  --opacity-22: 0.22;  --opacity-28: 0.28;  --opacity-35: 0.35;  --opacity-43: 0.43;
+  --opacity-52: 0.52;  --opacity-61: 0.61;  --opacity-74: 0.74;  --opacity-88: 0.88;
+  --opacity-97: 0.97;
+
+  /* ── Brand-mark gradient — Wanted blue→violet.
+        NOTE: assets/dullizze-mark.svg + wordmark hold their own gradient
+        stops; keep them in sync with these two vars. ── */
+  --brand-grad-from: var(--w-blue-50);
+  --brand-grad-to:   var(--w-violet-50);
+
+  /* ── Template accents (functional — live inside the 9:16 video frame.
+        The real video default lives in config.py DEFAULT_ACCENT_COLOR,
+        so these stay as-is, NOT remapped to the Wanted palette). ── */
+  --tpl-doc-bg:      #0b111d;   /* documentary letterbox */
+  --tpl-pop-yellow:  #ffe000;   /* pop caption fill (Wanted has no pure yellow) */
+  --tpl-banner-pink: #ff4fa3;   /* banner default accent — matches config.py */
+
+  /* ════════════════════════════════════════════════════════════
+     SEMANTIC TOKENS — roles mapped onto the Wanted palette above.
+     Primary action colour is Wanted Blue. */
+
+  /* Surfaces */
+  --bg:           var(--w-coolNeutral-98);
+  --bg-elevated:  var(--w-common-100);
+  --surface:      var(--w-common-100);
+  --surface-soft: var(--w-coolNeutral-97);
+
+  /* Text */
+  --fg:           var(--w-coolNeutral-15);
+  --fg-muted:     var(--w-coolNeutral-50);
+  --fg-subtle:    var(--w-coolNeutral-60);
+  --fg-on-brand:  var(--w-common-100);
+
+  /* Lines */
+  --line:         var(--w-coolNeutral-90);
+  --line-soft:    var(--w-coolNeutral-95);
+
+  /* Accent = Wanted Blue */
+  --accent:       var(--w-blue-50);
+  --accent-hover: var(--w-blue-40);   /* darker step for hover / active */
+  --accent-soft:  var(--w-blue-95);   /* selection / soft fill */
+  --accent-line:  var(--w-blue-90);   /* accent border tint */
+  --accent-ring:  rgba(0, 102, 255, 0.16);   /* blue-50 @ opacity-16 */
+
+  --link:         var(--w-blue-50);
+
+  /* Status — colours map 1:1 to job state */
+  --success:      var(--w-green-40);
+  --success-soft: var(--w-green-95);
+  --success-line: var(--w-green-90);
+  --warning:      var(--w-orange-40);   /* queued / running */
+  --warning-soft: var(--w-orange-95);
+  --warning-line: var(--w-orange-90);
+  --danger:       var(--w-red-40);
+  --danger-soft:  var(--w-red-95);
+  --danger-line:  var(--w-red-90);
+
+  /* ── Type families ──────────────────────────────────────── */
+  --font-display: "Wanted Sans Variable", "Wanted Sans",
+                  "Pretendard Variable", Pretendard,
+                  -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                  "Malgun Gothic", system-ui, sans-serif;
+
+  --font-body:    "Pretendard Variable", Pretendard,
+                  -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                  "Malgun Gothic", system-ui, sans-serif;
+
+  --font-mono:    ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+                  "JetBrains Mono", Consolas, monospace;
+
+  /* ── Type scale (px) — 1.125 ratio, anchored at body=14px ── */
+  --fs-display:  48px;   --lh-display:  1.10;  --tracking-display:  -0.02em;
+  --fs-h1:       30px;   --lh-h1:       1.20;  --tracking-h1:       -0.012em;
+  --fs-h2:       24px;   --lh-h2:       1.25;  --tracking-h2:       -0.008em;
+  --fs-h3:       20px;   --lh-h3:       1.30;  --tracking-h3:       -0.004em;
+  --fs-h4:       17px;   --lh-h4:       1.30;
+  --fs-body:     14px;   --lh-body:     1.55;
+  --fs-body-lg:  16px;   --lh-body-lg:  1.55;
+  --fs-label:    13px;   --lh-label:    1.40;
+  --fs-caption:  12px;   --lh-caption:  1.40;
+  --fs-mono:     13px;   --lh-mono:     1.50;
+
+  /* Weights — Pretendard ships full range; we lock to a 4-stop scale */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* ── Spacing scale (4px base) ───────────────────────────── */
+  --space-0:   0;
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-10:  40px;
+  --space-12:  48px;
+  --space-16:  64px;
+  --space-20:  80px;
+
+  /* ── Radius ─────────────────────────────────────────────── */
+  --radius-xs:  4px;
+  --radius-sm:  6px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+  --radius-pill: 9999px;
+
+  /* ── Elevation — soft, low-contrast. Friendly, not floaty. ── */
+  --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.08), 0 1px 3px rgba(16, 24, 40, 0.04);
+  --shadow-md: 0 4px 8px -2px rgba(16, 24, 40, 0.08), 0 2px 4px -2px rgba(16, 24, 40, 0.04);
+  --shadow-lg: 0 12px 24px -8px rgba(16, 24, 40, 0.12), 0 4px 8px -2px rgba(16, 24, 40, 0.06);
+  --shadow-ring: 0 0 0 3px var(--accent-ring);
+
+  /* ── Motion ─────────────────────────────────────────────── */
+  --ease-out:    cubic-bezier(0.16, 1, 0.30, 1);  /* gentle landing */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:    120ms;
+  --dur-base:    180ms;
+  --dur-slow:    240ms;
+}
+
+/* ────────────────────────────────────────────────────────────
+   Base elements — opinionated defaults so a bare <h1>/<p>/<code>
+   already looks correct in Dullizze.
+   ──────────────────────────────────────────────────────────── */
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  color: var(--fg);
+  margin: 0;
+  text-wrap: pretty;
+}
+h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: var(--tracking-h1); }
+h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--tracking-h2); font-weight: var(--fw-semibold); }
+h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: var(--tracking-h3); font-weight: var(--fw-semibold); }
+h4 { font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: var(--fw-semibold); }
+
+p  { margin: 0; line-height: var(--lh-body); text-wrap: pretty; }
+
+a  { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+small, .caption { font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--fg-muted); }
+
+code, kbd, samp, pre {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  line-height: var(--lh-mono);
+}
+code {
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--surface-soft);
+  color: var(--fg);
+}
+
+hr { border: 0; border-top: 1px solid var(--line); margin: var(--space-6) 0; }
+
+::selection { background: var(--accent-soft); color: var(--accent-hover); }
+
+/* Korean text typically needs slightly looser line-height than Latin */
+:lang(ko) { word-break: keep-all; line-break: strict; }

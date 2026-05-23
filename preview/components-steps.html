@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<title>Step progress</title>
+<style>
+  body { margin: 0; padding: 22px 28px; background: #fff; }
+  .steps { display: flex; flex-direction: column; gap: 0; max-width: 520px; }
+  .step { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; }
+  .step:last-child { border-bottom: 0; }
+  .bullet { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; color: var(--fg-muted); font-size: 11px; font-weight: 700; }
+  .done .bullet { border-color: var(--accent); background: var(--accent); color: #fff; }
+  .running .bullet { border-color: var(--warning); color: var(--warning); animation: spin 1.6s linear infinite; }
+  .done .label { color: var(--fg); }
+  .running .label { color: var(--fg); font-weight: 600; }
+  .pending .label { color: var(--fg-muted); }
+  .time { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+  <div class="steps">
+    <div class="step done"><span class="bullet">✓</span><span class="label">대본 쓰는 중…</span><span class="time">0:14</span></div>
+    <div class="step done"><span class="bullet">✓</span><span class="label">목소리 입히는 중…</span><span class="time">0:22</span></div>
+    <div class="step running"><span class="bullet">·</span><span class="label">이미지 만드는 중…</span><span class="time">0:31</span></div>
+    <div class="step pending"><span class="bullet">4</span><span class="label">자막 맞추는 중…</span><span class="time">—</span></div>
+    <div class="step pending"><span class="bullet">5</span><span class="label">영상 만드는 중…</span><span class="time">—</span></div>
+  </div>
+</body>
+</html>

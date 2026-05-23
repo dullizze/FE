@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<title>Form fields</title>
+<style>
+  body { margin: 0; padding: 22px 28px; background: #fff; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 22px; align-items: start; }
+  label { display: block; font-size: 13px; font-weight: 600; color: var(--fg-muted); margin-bottom: 6px; }
+  input[type="text"], select, textarea { width: 100%; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--fg); padding: 0 12px; font: 400 14px/1.4 var(--font-body); outline: none; }
+  input[type="text"], select { height: 40px; }
+  textarea { padding: 10px 12px; resize: vertical; min-height: 80px; line-height: 1.5; }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: var(--shadow-ring); }
+  .focus { border-color: var(--accent); box-shadow: var(--shadow-ring); }
+  .full { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+  <div class="full"><label>주제</label><textarea>클레오파트라는 이집트인이 아니었다</textarea></div>
+  <div><label>채널명</label><input type="text" value="소소한 AI 입문노트 | 소에노" /></div>
+  <div><label>비주얼 방식</label><select><option>빠른 모드</option></select></div>
+  <div><label>강조색</label><input type="text" value="#ff4fa3" class="focus" /></div>
+  <div><label>보이스</label><input type="text" placeholder="ko-KR-SunHiNeural" /></div>
+</body>
+</html>

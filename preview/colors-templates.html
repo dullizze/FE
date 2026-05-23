@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<title>Template accents</title>
+<style>
+  body { margin: 0; padding: 22px 28px; background: #fff; }
+  .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: end; }
+  .tile { border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+  .preview { aspect-ratio: 9/16; max-width: 110px; margin: 14px auto 6px; }
+  .meta { padding: 10px 12px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); }
+  .name { color: var(--fg); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="tile">
+      <img class="preview" src="../assets/templates/documentary.svg" alt="" />
+      <div class="meta"><span class="name">documentary</span><span>black + white</span></div>
+    </div>
+    <div class="tile">
+      <img class="preview" src="../assets/templates/pop.svg" alt="" />
+      <div class="meta"><span class="name">pop</span><span>#FFE000</span></div>
+    </div>
+    <div class="tile">
+      <img class="preview" src="../assets/templates/banner.svg" alt="" />
+      <div class="meta"><span class="name">banner</span><span>#FF4FA3</span></div>
+    </div>
+  </div>
+</body>
+</html>

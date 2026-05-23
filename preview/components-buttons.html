@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<title>Buttons</title>
+<style>
+  body { margin: 0; padding: 22px 28px; background: #fff; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  .label { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); width: 90px; }
+  button { height: 40px; border-radius: 6px; padding: 0 16px; font: 600 14px/1 var(--font-body); cursor: pointer; transition: background var(--dur-fast) var(--ease-out); }
+  .primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
+  .primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .secondary { background: #fff; color: var(--fg); border: 1px solid var(--line); }
+  .secondary:hover { background: var(--surface-soft); }
+  .ghost { background: transparent; color: var(--fg); border: 1px solid transparent; }
+  .ghost:hover { background: var(--surface-soft); }
+  .disabled { opacity: 0.58; cursor: not-allowed; }
+  .small { height: 32px; padding: 0 12px; font-size: 13px; }
+</style>
+</head>
+<body>
+  <div class="row"><div class="label">primary</div>
+    <button class="primary">영상 만들기</button>
+    <button class="primary" style="background:var(--accent-hover);border-color:var(--accent-hover);">hover</button>
+    <button class="primary disabled" disabled>비활성</button>
+  </div>
+  <div class="row"><div class="label">secondary</div>
+    <button class="secondary">조회</button>
+    <button class="secondary" style="background:var(--surface-soft);">hover</button>
+    <button class="secondary disabled" disabled>비활성</button>
+  </div>
+  <div class="row"><div class="label">ghost / sm</div>
+    <button class="ghost small">취소</button>
+    <button class="secondary small">다시 시도</button>
+    <button class="primary small">공개로 전환</button>
+  </div>
+</body>
+</html>

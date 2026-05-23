@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<title>Status badges</title>
+<style>
+  body { margin: 0; padding: 22px 28px; background: #fff; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .badge { min-width: 88px; height: 30px; padding: 0 12px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border-radius: 9999px; border: 1px solid; background: #fff; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .idle    { color: #647078; border-color: #d9e0de; }
+  .queued  { color: #b7791f; border-color: #efd9aa; background: #fff8eb; }
+  .running { color: #b7791f; border-color: #efd9aa; background: #fff8eb; }
+  .done    { color: var(--success); border-color: var(--success-line); background: var(--success-soft); }
+  .failed  { color: #b42318; border-color: #f2c3bd; background: #fff0ee; }
+  /* pulse for running */
+  .running .dot { animation: pulse 1.2s var(--ease-in-out) infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+</style>
+</head>
+<body>
+  <span class="badge idle"><span class="dot"></span>idle</span>
+  <span class="badge queued"><span class="dot"></span>queued</span>
+  <span class="badge running"><span class="dot"></span>running</span>
+  <span class="badge done"><span class="dot"></span>done</span>
+  <span class="badge failed"><span class="dot"></span>failed</span>
+</body>
+</html>

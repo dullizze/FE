@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<title>Brand colours</title>
+<style>
+  body { margin: 0; padding: 22px 28px; background: #fff; }
+  .row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .sw { border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+  .chip { height: 80px; }
+  .info { padding: 8px 10px; font-size: 11px; font-family: var(--font-mono); color: var(--fg-muted); display: flex; justify-content: space-between; }
+  .name { color: var(--fg); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--w-blue-50)"></div><div class="info"><span class="name">blue-50</span><span>#0066FF</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--w-blue-40)"></div><div class="info"><span class="name">blue-40</span><span>#0054D1</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--w-blue-95)"></div><div class="info"><span class="name">blue-95</span><span>#EAF2FE</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--w-violet-50)"></div><div class="info"><span class="name">violet-50</span><span>#6541F2</span></div></div>
+    <div class="sw"><div class="chip" style="background:linear-gradient(135deg,var(--brand-grad-from),var(--brand-grad-to))"></div><div class="info"><span class="name">brand</span><span>gradient</span></div></div>
+  </div>
+</body>
+</html>

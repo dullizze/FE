@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dullizze — 새 쇼츠 만들기</title>
+<link rel="stylesheet" href="../../colors_and_type.css" />
+<link rel="icon" type="image/svg+xml" href="../../assets/dullizze-mark.svg" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--bg); }
+  /* shared keyframes for primitives */
+  @keyframes dlz-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @keyframes dlz-spin  { to { transform: rotate(360deg); } }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; }
+  /* tighter list resets inside the kit */
+  ul, ol { margin: 0; padding: 0; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+        integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+        integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+        integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+        crossorigin="anonymous"></script>
+
+<script src="fake-api.js"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="Icon.jsx"></script>
+<script type="text/babel" src="primitives.jsx"></script>
+<script type="text/babel" src="Shell.jsx"></script>
+<script type="text/babel" src="Create.jsx"></script>
+<script type="text/babel" src="Job.jsx"></script>
+<script type="text/babel" src="Dashboard.jsx"></script>
+
+<script type="text/babel">
+function PresetsStub() {
+  return (
+    <Card title="프리셋" padding={24}>
+      <p style={{ color: 'var(--fg-muted)', margin: 0, lineHeight: 1.6 }}>
+        프리셋은 주제를 뺀 스타일 레시피예요. 자주 쓰는 형 · 보이스 · 채널명 · 강조색을 저장해 두고 생성 폼을 한 번에 채울 수 있어요.
+      </p>
+      <div style={{
+        marginTop: 18, padding: 16, borderRadius: 8,
+        background: 'var(--surface-soft)', display: 'flex', gap: 12, alignItems: 'center',
+      }}>
+        <Icon name="bookmark" size={18} />
+        <div style={{ fontSize: 13, color: 'var(--fg-muted)' }}>아직 저장된 프리셋이 없어요. 만들기 화면에서 설정을 정한 뒤 저장해 보세요.</div>
+      </div>
+    </Card>
+  );
+}
+function SettingsStub() {
+  return (
+    <div style={{ display: 'grid', gap: 18 }}>
+      <Card title="계정" padding={20}>
+        <div style={{ display: 'grid', gap: 8, fontSize: 14 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--fg-muted)' }}>이메일</span><span>so@eno.kr</span></div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--fg-muted)' }}>플랜</span><span>Pro · 월 20편</span></div>
+        </div>
+      </Card>
+      <Card title="YouTube 채널" padding={20}>
+        <div style={{ fontSize: 14, color: 'var(--fg-muted)' }}>연결된 채널 · 소소한 AI 입문노트</div>
+        <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>
+          <Button variant="secondary" icon="refresh">토큰 다시 받기</Button>
+          <Button variant="danger" icon="trash">연결 해제</Button>
+        </div>
+      </Card>
+      <Card title="알림" padding={20}>
+        <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0' }}>
+          <span>영상이 완성되면 메일로 알려주기</span>
+          <input type="checkbox" defaultChecked style={{ accentColor: 'var(--accent)', width: 18, height: 18 }} />
+        </label>
+        <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0' }}>
+          <span>실패 시 슬랙으로 알려주기</span>
+          <input type="checkbox" style={{ accentColor: 'var(--accent)', width: 18, height: 18 }} />
+        </label>
+      </Card>
+    </div>
+  );
+}
+Object.assign(window, { PresetsStub, SettingsStub });
+</script>
+
+<script type="text/babel">
+function App() {
+  const [route, setRoute] = React.useState({ name: 'create' });
+
+  let body = null;
+  if (route.name === 'create')    body = <Create onCreated={(id) => setRoute({ name: 'job', id })} />;
+  else if (route.name === 'job')  body = <Job jobId={route.id}
+                                              onBack={() => setRoute({ name: 'dashboard' })}
+                                              onRoute={setRoute} />;
+  else if (route.name === 'dashboard') body = <Dashboard onOpenJob={(id) => setRoute({ name: 'job', id })}
+                                                          onCreate={() => setRoute({ name: 'create' })} />;
+  else if (route.name === 'presets')   body = <PresetsStub />;
+  else if (route.name === 'settings')  body = <SettingsStub />;
+
+  return <Shell route={route} onRoute={setRoute}>{body}</Shell>;
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<title>Body & label type</title>
+<style>
+  body { margin: 0; padding: 24px 32px; background: #fff; }
+  .block { margin-bottom: 18px; }
+  .meta { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); margin-bottom: 4px; }
+  .body-lg { font-size: var(--fs-body-lg); line-height: var(--lh-body-lg); }
+  .body    { font-size: var(--fs-body); line-height: var(--lh-body); }
+  .label   { font-size: var(--fs-label); line-height: var(--lh-label); color: var(--fg-muted); font-weight: 600; }
+  .caption { font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--fg-muted); }
+</style>
+</head>
+<body>
+  <div class="block"><div class="meta">body-lg · 16 / 1.55 · 400</div><div class="body-lg">생성에 1~2분 정도 걸려요. 다른 일 하셔도 괜찮아요.</div></div>
+  <div class="block"><div class="meta">body · 14 / 1.55 · 400</div><div class="body">비공개로 올라갔어요, 확인 후 공개하세요.</div></div>
+  <div class="block"><div class="meta">label · 13 / 1.4 · 600 · muted</div><div class="label">주제</div></div>
+  <div class="block"><div class="meta">caption · 12 / 1.4 · muted</div><div class="caption">이번 달 12편 남음 · Pro 플랜</div></div>
+</body>
+</html>

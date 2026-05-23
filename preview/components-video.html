@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<title>Video preview frame</title>
+<style>
+  body { margin: 0; padding: 22px 28px; background: var(--bg); display: grid; grid-template-columns: 180px 1fr; gap: 22px; align-items: center; }
+  .video-pane { padding: 14px; background: #111827; border-radius: 8px; }
+  .frame { aspect-ratio: 9/16; max-height: 220px; margin: 0 auto; display: grid; place-items: center; border-radius: 6px; overflow: hidden; background: #0b111d; color: #cbd5e1; text-align: center; font-family: var(--font-mono); font-size: 12px; }
+  .meta dt { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); margin-top: 8px; }
+  .meta dd { margin: 2px 0 0; font-size: 14px; color: var(--fg); }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700; text-transform: uppercase; border: 1px solid var(--success-line); background: var(--success-soft); color: var(--success); margin-top: 10px; }
+</style>
+</head>
+<body>
+  <div class="video-pane"><div class="frame">final.mp4</div></div>
+  <dl class="meta" style="margin:0;">
+    <dt>job</dt><dd>jb_8f3a2c — 클레오파트라는 이집트인이 아니었다</dd>
+    <dt>형 · 보이스</dt><dd>기본형 · ko-KR-SunHiNeural</dd>
+    <span class="badge">● DONE · 완료</span>
+  </dl>
+</body>
+</html>

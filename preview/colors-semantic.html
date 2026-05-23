@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<title>Semantic colours</title>
+<style>
+  body { margin: 0; padding: 22px 28px; background: #fff; }
+  .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .sw { border-radius: var(--radius-md); padding: 12px 14px; border: 1px solid; }
+  .name { font-family: var(--font-mono); font-size: 11px; opacity: 0.9; }
+  .hex { font-family: var(--font-mono); font-size: 10px; opacity: 0.7; margin-top: 2px; }
+  .badge { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 700; border: 1px solid; margin-top: 8px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw" style="background:var(--success-soft);border-color:var(--success-line);color:var(--success);">
+      <div class="name">success</div><div class="hex">#15803D / soft #EBF8F5</div>
+      <span class="badge" style="border-color:var(--success-line);background:var(--success-soft);color:var(--success);">DONE · 완료</span>
+    </div>
+    <div class="sw" style="background:#fff8eb;border-color:#efd9aa;color:#b7791f;">
+      <div class="name">warning</div><div class="hex">#B7791F / soft #FFF8EB</div>
+      <span class="badge" style="border-color:#efd9aa;background:#fff8eb;color:#b7791f;">RUNNING · 생성중</span>
+    </div>
+    <div class="sw" style="background:#fff0ee;border-color:#f2c3bd;color:#b42318;">
+      <div class="name">danger</div><div class="hex">#B42318 / soft #FFF0EE</div>
+      <span class="badge" style="border-color:#f2c3bd;background:#fff0ee;color:#b42318;">FAILED · 실패</span>
+    </div>
+    <div class="sw" style="background:#fff;border-color:#d9e0de;color:#647078;">
+      <div class="name">neutral / idle</div><div class="hex">#FFFFFF / border #D9E0DE</div>
+      <span class="badge" style="border-color:#d9e0de;background:#fff;color:#647078;">IDLE · 대기</span>
+    </div>
+  </div>
+</body>
+</html>

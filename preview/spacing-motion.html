@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<title>Motion</title>
+<style>
+  body { margin: 0; padding: 22px 28px; background: #fff; }
+  .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .item { padding: 14px; border: 1px solid var(--line); border-radius: 8px; }
+  .name { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); margin-bottom: 8px; }
+  .name b { color: var(--fg); font-weight: 600; }
+  .ball { width: 18px; height: 18px; border-radius: 50%; background: linear-gradient(135deg, var(--brand-grad-from), var(--brand-grad-to)); animation: slide 1.6s var(--e) infinite; }
+  .demo-out  { --e: cubic-bezier(0.16, 1, 0.30, 1); }
+  .demo-io   { --e: cubic-bezier(0.65, 0, 0.35, 1); }
+  .demo-fast { animation-duration: 1.0s; --e: cubic-bezier(0.16, 1, 0.30, 1); }
+  @keyframes slide { 0% { transform: translateX(0); } 50% { transform: translateX(220px); } 100% { transform: translateX(0); } }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="item"><div class="name"><b>ease-out</b> · gentle landing · default</div><div class="ball demo-out"></div></div>
+    <div class="item"><div class="name"><b>ease-in-out</b> · used in step transitions</div><div class="ball demo-io"></div></div>
+    <div class="item"><div class="name"><b>dur</b> · 120 / 180 / 240ms — fades & nudges, no bounce</div><div class="ball demo-fast"></div></div>
+  </div>
+</body>
+</html>

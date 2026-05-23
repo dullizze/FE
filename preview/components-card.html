@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<title>Card</title>
+<style>
+  body { margin: 0; padding: 22px 28px; background: var(--bg); display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 18px; }
+  .card h2 { margin: 0 0 12px; font-size: 15px; font-weight: 700; }
+  .meta { color: var(--fg-muted); font-size: 13px; line-height: 1.5; }
+  .quota { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 9999px; background: var(--accent-soft); color: var(--accent-hover); font-size: 12px; font-weight: 600; }
+  .quota .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .head { display: flex; justify-content: space-between; align-items: center; }
+</style>
+</head>
+<body>
+  <section class="card">
+    <div class="head">
+      <h2>생성</h2>
+      <span class="quota"><span class="dot"></span>이번 달 12편 남음</span>
+    </div>
+    <p class="meta">주제 한 줄만 적으면 형·보이스는 자동으로 채워져요. 1~2분이면 완성돼요.</p>
+  </section>
+  <section class="card">
+    <h2>최근 작업</h2>
+    <p class="meta">아직 만든 영상이 없어요.<br/>위에서 첫 쇼츠를 만들어 보세요.</p>
+  </section>
+</body>
+</html>
